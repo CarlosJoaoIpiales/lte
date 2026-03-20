@@ -18,7 +18,7 @@ public class AckFrameBuilder {
          * + Reserve(2) + DataLength(2) + Checksum(1) + End(1)
         */
 
-        byte[] ack = new byte[17];
+        byte[] ack = new byte[18];
         int i = 0;
 
         ack[i++] = (byte) START_BYTE;
