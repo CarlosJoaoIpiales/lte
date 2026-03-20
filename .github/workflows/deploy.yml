@@ -1,0 +1,43 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          password: ${{ secrets.DROPLET_PASSWORD }}
+          script: |
+            # Clonar o actualizar el repositorio
+            if [ ! -d "/opt/lte-backend" ]; then
+              git clone ${{ secrets.REPO_URL }} /opt/lte-backend
+            else
+              cd /opt/lte-backend && git pull origin main
+            fi
+
+            cd /opt/lte-backend
+
+            # Construir nueva imagen
+            docker build -t lte-backend .
+
+            # Reemplazar el contenedor anterior
+            docker stop lte 2>/dev/null || true
+            docker rm lte 2>/dev/null || true
+            docker run -d \
+              --name lte \
+              --restart unless-stopped \
+              -p 8080:8080 \
+              -p 16680:16680/udp \
+              lte-backend
+
+            # Limpiar imágenes antiguas
+            docker image prune -f
