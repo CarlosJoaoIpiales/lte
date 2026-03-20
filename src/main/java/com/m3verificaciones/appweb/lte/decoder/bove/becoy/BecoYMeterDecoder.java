@@ -23,7 +23,8 @@ public class BecoYMeterDecoder implements PayloadDecoder {
     private static final Map<Integer, Double> UNIT_MAP = Map.of(
         0x2B, 0.001,
         0x2C, 0.01,
-        0x2D, 1.0,
+        0x2D, 0.1,
+        0x2E, 1.0,
         0x35, 0.0001
     );
 
@@ -65,7 +66,7 @@ public class BecoYMeterDecoder implements PayloadDecoder {
         int st2 = payload[12] & 0xFF;
 
         // ICCID: bytes 13-22 (BCD, little-endian)
-        String iccid = BoveFrameParser.bcdLittleEndianToDigits(Arrays.copyOfRange(payload, 13, 23));
+        String iccid = BoveFrameParser.bcdBytesToDigits(Arrays.copyOfRange(payload, 13, 23));
 
         // RSSI: byte 23
         int rssiRaw = payload[23] & 0xFF;
