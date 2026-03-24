@@ -104,9 +104,15 @@ public class MeterDataHandler implements CmdHandler {
                 reading.getSerialMeter(), reading.getConsumption(), reading.getUplinkIntervalMinutes(),
                 reading.getRssiDbm());
 
+        try {
+            String json = objectMapper.writeValueAsString(reading);
+            log.info("Decoded message JSON: imei={} payload={}", imei, json);
+        } catch (Exception e) {
+            log.warn("Could not serialize decoded reading to JSON: {}", e.getMessage());
+        }
+
         if (reading.hasActiveAlarms()) {
             log.warn("Activated Alarms: imei={} meterId={}", imei, reading.getSerialMeter());
         }
     }
-
 }
