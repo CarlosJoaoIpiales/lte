@@ -2,13 +2,11 @@ package com.m3verificaciones.appweb.lte.dispatcher;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.m3verificaciones.appweb.lte.decoder.PayloadDecoder;
 import com.m3verificaciones.appweb.lte.decoder.PayloadDecoderFactory;
 import com.m3verificaciones.appweb.lte.dto.DecodedReading;
 import com.m3verificaciones.appweb.lte.dto.ParsedFrame;
 import com.m3verificaciones.appweb.lte.event.MeterReadingEvent;
-import com.m3verificaciones.appweb.lte.frame.bove.BoveFrameParser;
 import com.m3verificaciones.appweb.lte.utils.api.MeterApiService;
 
 import org.slf4j.Logger;

@@ -1,6 +1,5 @@
 package com.m3verificaciones.appweb.lte.dispatcher;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.m3verificaciones.appweb.lte.dto.ParsedFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
