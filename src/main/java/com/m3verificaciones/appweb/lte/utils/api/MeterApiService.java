@@ -23,8 +23,8 @@ public class MeterApiService {
 
     public Mono<JsonNode> getMeterDetailsByImei(String imei){
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/meter/details/by-imei")
-                        .queryParam("imei", imei)
+                .uri(uriBuilder -> uriBuilder.path("/meter/details")
+                        .queryParam("deviceId", imei)
                         .build())
                 .retrieve()
                 .bodyToMono(JsonNode.class)

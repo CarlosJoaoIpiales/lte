@@ -15,7 +15,7 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          password: ${{ secrets.DROPLET_PASSWORD }}
+          key: ${{ secrets.DROPLET_KEY }}
           script: |
             # Clonar o actualizar el repositorio
             if [ ! -d "/opt/lte-backend" ]; then
