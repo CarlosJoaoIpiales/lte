@@ -52,7 +52,7 @@ public class BoveFrameParser implements FrameParser {
         byte[] reserve = Arrays.copyOfRange(raw, 12, 14); // bytes 12-13
         byte[] payload = Arrays.copyOfRange(raw, 16, 16 + dataLength); // bytes 16 to (16+dataLength-1)
 
-        int checksumRx = raw[16 + dataLength]; // byte after payload
+        int checksumRx = raw[16 + dataLength] & 0xFF; // byte after payload
         int checksumCalc = calcChecksum(raw, 16 + dataLength); // calculate checksum from byte 0 to end of payload
 
         if(!isChecksumValid(checksumRx, checksumCalc)){
