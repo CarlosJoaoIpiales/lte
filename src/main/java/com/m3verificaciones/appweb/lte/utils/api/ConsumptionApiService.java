@@ -27,7 +27,7 @@ public class ConsumptionApiService {
 
     public Mono<String> createConsumption(String imei, String serial, double consumption, String model, String diameter){
         Map<String, Object> body = new HashMap<>();
-        body.put("devEui", imei);
+        body.put("deviceId", imei);
         body.put("serial", serial);
         body.put("dateConsumption", LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
         body.put("consumptionValue", consumption);
