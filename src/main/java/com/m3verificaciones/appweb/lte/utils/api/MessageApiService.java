@@ -22,7 +22,7 @@ public class MessageApiService {
 
     public Mono<String> createMessage(ObjectNode messageBody){
         return webClient.post()
-                .uri("/message")
+                .uri("/messages")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(messageBody)
                 .retrieve()
