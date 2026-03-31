@@ -58,7 +58,9 @@ public class MeterDataHandler implements CmdHandler {
                     }
 
                     String brand = frame.getBrand();
-                    String model = meterDetails.path("model").asText("");
+                    String rawModel = meterDetails.path("model").asText("");
+                    // Normaliza el modelo: quita espacios, concatena 'Y' si es necesario, y lo pone en mayúsculas
+                    String model = rawModel.replaceAll("\\s+", "").toUpperCase();
                     String serial = meterDetails.path("serial").asText("");
                     String uniqueKey = meterDetails.path("unique_key").asText("");
 
