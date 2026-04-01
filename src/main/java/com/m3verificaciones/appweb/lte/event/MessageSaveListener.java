@@ -39,13 +39,7 @@ public class MessageSaveListener {
             uplinkBody.put("confirmed", false);
             uplinkBody.put("gws", "");
             uplinkBody.put("rawReading", frame.getRawBytes() != null ? bytesToHex(frame.getRawBytes()) : "");
-            String serial = reading.getSerialMeter();
-            if (serial == null || serial.isEmpty()) {
-                serial = event.getMeterDetails().path("serial").asText("");
-            }
-            log.info("Serial enviado en uplinkBody: {}", serial);
-
-            uplinkBody.put("serial", serial);
+            uplinkBody.put("serialMeter", reading.getSerialMeter());
             messageApiService.createMessage(uplinkBody).subscribe();
 
             // Alarms
