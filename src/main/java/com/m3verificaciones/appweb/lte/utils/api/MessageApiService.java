@@ -20,7 +20,7 @@ public class MessageApiService {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
-    public Mono<String> createMessage(ObjectNode messageBody){
+    public Mono<String> createMessage(ObjectNode messageBody) {
         return webClient.post()
                 .uri("/messages")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -30,5 +30,13 @@ public class MessageApiService {
                 .doOnSuccess(r -> log.info("Save Message Succes"))
                 .doOnError(e -> log.error("Error creating message: {}", e.getMessage()));
     }
-    
+
+    public Mono<Void> createBoveMessage(ObjectNode body) {
+        return webClient.post()
+                .uri("/message-meter-bove")
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(Void.class);
+    }
+
 }
