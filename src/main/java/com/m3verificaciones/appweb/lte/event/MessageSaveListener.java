@@ -28,8 +28,6 @@ public class MessageSaveListener {
             ParsedFrame frame = event.getFrame();
             DecodedReading reading = event.getReading();
 
-            String serial = event.getMeterDetails().path("serial").asText("");
-
             ObjectNode uplinkBody = objectMapper.createObjectNode();
             uplinkBody.put("typeMessage", "Uplink");
             uplinkBody.put("communication", "4G");
@@ -41,7 +39,13 @@ public class MessageSaveListener {
             uplinkBody.put("confirmed", false);
             uplinkBody.put("gws", "");
             uplinkBody.put("rawReading", frame.getRawBytes() != null ? bytesToHex(frame.getRawBytes()) : "");
-            uplinkBody.put("serial", reading.getSerialMeter());
+            String serial = reading.getSerialMeter();
+            if (serial == null || serial.isEmpty()) {
+                serial = event.getMeterDetails().path("serial").asText("");
+            }
+            log.info("Serial enviado en uplinkBody: {}", serial);
+
+            uplinkBody.put("serial", serial);
             messageApiService.createMessage(uplinkBody).subscribe();
 
             // Alarms
